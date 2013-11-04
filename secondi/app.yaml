@@ -10,6 +10,9 @@ handlers:
  
 - url: .*
   script: main.app
+  
+- url: /images
+  static_dir: images
  
 libraries:
 - name: webapp2
