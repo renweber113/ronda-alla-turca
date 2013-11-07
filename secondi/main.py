@@ -10,20 +10,21 @@ import cgi
 import os
 import jinja2
 from gaesessions import get_current_session
- 
+
+# Paths and Jinja2
+template_path = os.path.join(os.path.dirname(__file__), 'templates')
+jinja2_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path))
+                                
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         session = get_current_session()
         firstName = session.get('firstName', '')
         familyName = session.get('familyName', '')
         message = session.get('message', '')
-        jinja_environment = jinja2.Environment(autoescape = True,
-            loader = jinja2.FileSystemLoader(os.path.join(
-               os.path.dirname(__file__), 'templates')))
-        tpl_vars = { "message": message, "firstName": firstName,
-            "familyName": familyName }
-        template = jinja_environment.get_template('index.html')
-        self.response.out.write(template.render(tpl_vars))
+        title = "Ren's Page"
+        template_values = { "message": message, "firstName": firstName, "familyName": familyName, 'title': title }
+        template = jinja2_env.get_template('index.html')
+        self.response.out.write(template.render(template_values))
     
     def post(self):
         firstName = self.request.get("firstName")

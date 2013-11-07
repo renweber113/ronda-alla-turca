@@ -7,12 +7,12 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
- 
-- url: .*
-  script: main.app
   
 - url: /images
   static_dir: images
+ 
+- url: .*
+  script: main.app
  
 libraries:
 - name: webapp2
